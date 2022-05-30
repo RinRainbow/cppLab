@@ -38,7 +38,7 @@ void School::transfer(float amount, School& toSchool) {
 }
 
 ostream& operator<< (ostream& otp, const School& scl) {
-    otp << scl.name << "     " << scl.studentAmount << " " << scl.studentAmountNextYear;
+    otp << scl.name << "\t" << scl.studentAmount << "\t" << scl.studentAmountNextYear;
     return otp;
 }
 
