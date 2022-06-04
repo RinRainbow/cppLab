@@ -12,9 +12,9 @@ typedef struct book {
 
 int find_quotation(string str) {
     int count = 0;
-    for(int i = 0; i < str.length(); i++) {
-        if(str[i] == 0x22) count++;
-        if(count == 2) return i;    // return the second 0x22 position
+    for (int i = 0; i < str.length(); i++) {
+        if (str[i] == 0x22) count++;
+        if (count == 2) return i;    // return the second 0x22 position
     }
     return 0;
 }
@@ -22,39 +22,39 @@ int find_quotation(string str) {
 
 
 int main() {
-    
+
     set<string> Title;
     set<string> Author;
     vector<book> data;
-    
+
     string one_line;
-    
-    while(getline(cin, one_line)) {
-        
-        if(one_line.substr(0, 6) == "Insert") {
+
+    while (getline(cin, one_line)) {
+
+        if (one_line.substr(0, 6) == "Insert") {
             string title = "", author = "";
             int edition = 0;
-            
-            if(one_line.length() > 7) {
+
+            if (one_line.length() > 7) {
                 one_line.erase(0, 7);   // Insert_ を消去
-                
+
                 int pos = find_quotation(one_line);
-                if(pos != 0) {
-                    title = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                if (pos != 0) {
+                    title = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                     title.pop_back();   //最後の0x22消去
                     title.erase(0, 1);   //最初の0x22消去
-                    
-                    if(one_line.length() > (3+title.length())) {
-                        one_line.erase(0, 3+title.length());   // "title"_ を消去
+
+                    if (one_line.length() > (3 + title.length())) {
+                        one_line.erase(0, 3 + title.length());   // "title"_ を消去
                         pos = find_quotation(one_line);
-                        if(pos != 0) {
-                            author = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                        if (pos != 0) {
+                            author = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                             author.pop_back();   //最後の0x22消去
                             author.erase(0, 1);   //最初の0x22消去
-                            
-                            if(one_line.length() > (3+author.length())) {
-                                one_line.erase(0, 3+author.length());   // "author"_ を消去
-                                if(!one_line.empty()) {
+
+                            if (one_line.length() > (3 + author.length())) {
+                                one_line.erase(0, 3 + author.length());   // "author"_ を消去
+                                if (!one_line.empty()) {
                                     edition = stoi(one_line);
                                 }
                                 else {
@@ -92,13 +92,13 @@ int main() {
                 cout << "Incomplete Command." << endl;
                 continue;
             }
-            
-            if(title == "" && author == "" && edition == 0) exit(EXIT_FAILURE);
+
+            if (title == "" && author == "" && edition == 0) exit(EXIT_FAILURE);
             else {
-                if(Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
-                    for(int i = 0; i < data.size(); i++) {
-                        if(data[i].title == title && data[i].author == author) {
-                            if(data[i].edition.find(edition) != data[i].edition.end()) {
+                if (Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data[i].title == title && data[i].author == author) {
+                            if (data[i].edition.find(edition) != data[i].edition.end()) {
                                 cout << "Datum already exist." << endl;
                             }
                             else {
@@ -121,30 +121,30 @@ int main() {
                 }
             }
         }
-        else if(one_line.substr(0, 14) == "Delete Edition") {
+        else if (one_line.substr(0, 14) == "Delete Edition") {
             string title = "", author = "";
             int edition = 0;
-            
-            if(one_line.length() > 15) {
+
+            if (one_line.length() > 15) {
                 one_line.erase(0, 15);   // Deleta_Edition_ を消去
-                
+
                 int pos = find_quotation(one_line);
-                if(pos != 0) {
-                    title = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                if (pos != 0) {
+                    title = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                     title.pop_back();   //最後の0x22消去
                     title.erase(0, 1);   //最初の0x22消去
-                    
-                    if(one_line.length() > (3+title.length())) {
-                        one_line.erase(0, 3+title.length());   // "title"_ を消去
+
+                    if (one_line.length() > (3 + title.length())) {
+                        one_line.erase(0, 3 + title.length());   // "title"_ を消去
                         pos = find_quotation(one_line);
-                        if(pos != 0) {
-                            author = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                        if (pos != 0) {
+                            author = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                             author.pop_back();   //最後の0x22消去
                             author.erase(0, 1);   //最初の0x22消去
-                            
-                            if(one_line.length() > (3+author.length())) {
-                                one_line.erase(0, 3+author.length());   // "author"_ を消去
-                                if(!one_line.empty()) {
+
+                            if (one_line.length() > (3 + author.length())) {
+                                one_line.erase(0, 3 + author.length());   // "author"_ を消去
+                                if (!one_line.empty()) {
                                     edition = stoi(one_line);
                                 }
                                 else {
@@ -182,17 +182,17 @@ int main() {
                 cout << "Incomplete Command." << endl;
                 continue;
             }
-            
-            if(title == "" && author == "" && edition == 0) exit(EXIT_FAILURE);
+
+            if (title == "" && author == "" && edition == 0) exit(EXIT_FAILURE);
             else {
-                if(Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
-                    for(int i = 0; i < data.size(); i++) {
-                        if(data[i].title == title && data[i].author == author) {
-                            if(data[i].edition.find(edition) != data[i].edition.end()) {
+                if (Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data[i].title == title && data[i].author == author) {
+                            if (data[i].edition.find(edition) != data[i].edition.end()) {
                                 cout << "Delete " << author << "\'s " << title << ", Edition: " << edition << "." << endl;
                                 data[i].edition.erase(edition);
-                                if(data[i].edition.empty()) {
-                                    data.erase(data.begin()+i);
+                                if (data[i].edition.empty()) {
+                                    data.erase(data.begin() + i);
                                     Title.erase(title);
                                     Author.erase(author);
                                 }
@@ -209,23 +209,23 @@ int main() {
                 }
             }
         }
-        else if(one_line.substr(0, 11) == "Delete Book") {
+        else if (one_line.substr(0, 11) == "Delete Book") {
             string title, author;
-            
-            if(one_line.length() > 12) {
+
+            if (one_line.length() > 12) {
                 one_line.erase(0, 12);   // Deleta_Book_ を消去
-                
+
                 int pos = find_quotation(one_line);
-                if(pos != 0) {
-                    title = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                if (pos != 0) {
+                    title = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                     title.pop_back();   //最後の0x22消去
                     title.erase(0, 1);   //最初の0x22消去
-                    
-                    if(one_line.length() > (3+title.length())) {
-                        one_line.erase(0, 3+title.length());   // "title"_ を消去
+
+                    if (one_line.length() > (3 + title.length())) {
+                        one_line.erase(0, 3 + title.length());   // "title"_ を消去
                         pos = find_quotation(one_line);
-                        if(pos != 0) {
-                            author = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                        if (pos != 0) {
+                            author = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                             author.pop_back();   //最後の0x22消去
                             author.erase(0, 1);   //最初の0x22消去
                         }
@@ -252,16 +252,14 @@ int main() {
                 cout << "Incomplete Command." << endl;
                 continue;
             }
-            
-            if(title == "" && author == "") exit(EXIT_FAILURE);
+
+            if (title == "" && author == "") exit(EXIT_FAILURE);
             else {
-                if(Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
-                    for(int i = 0; i < data.size(); i++) {
-                        if(data[i].title == title && data[i].author == author) {
-                            for(auto it = data[i].edition.begin(); it != data[i].edition.end(); it++) {
-                                cout << "Delete " << author << "\'s " << title << ". Edition: " << *it << "." << endl;
-                            }
-                            data.erase(data.begin()+i);
+                if (Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data[i].title == title && data[i].author == author) {
+                            cout << "Delete " << author << "\'s " << title << "." << endl;
+                            data.erase(data.begin() + i);
                             Title.erase(title);
                             Author.erase(author);
                             break;
@@ -273,23 +271,23 @@ int main() {
                 }
             }
         }
-        else if(one_line.substr(0, 9) == "Find Book") {
+        else if (one_line.substr(0, 9) == "Find Book") {
             string title, author;
-            
-            if(one_line.length() > 10) {
+
+            if (one_line.length() > 10) {
                 one_line.erase(0, 10);   // Find_Book_ を消去
-                
+
                 int pos = find_quotation(one_line);
-                if(pos != 0) {
-                    title = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                if (pos != 0) {
+                    title = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                     title.pop_back();   //最後の0x22消去
                     title.erase(0, 1);   //最初の0x22消去
-                    
-                    if(one_line.length() > (3+title.length())) {
-                        one_line.erase(0, 3+title.length());   // "title"_ を消去
+
+                    if (one_line.length() > (3 + title.length())) {
+                        one_line.erase(0, 3 + title.length());   // "title"_ を消去
                         pos = find_quotation(one_line);
-                        if(pos != 0) {
-                            author = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                        if (pos != 0) {
+                            author = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                             author.pop_back();   //最後の0x22消去
                             author.erase(0, 1);   //最初の0x22消去
                         }
@@ -316,18 +314,18 @@ int main() {
                 cout << "Incomplete Command." << endl;
                 continue;
             }
-            
-            if(title == "" && author == "") exit(EXIT_FAILURE);
+
+            if (title == "" && author == "") exit(EXIT_FAILURE);
             else {
-                if(Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
-                    for(int i = 0; i < data.size(); i++) {
-                        if(data[i].title == title && data[i].author == author) {
+                if (Title.find(title) != Title.end() && Author.find(author) != Author.end()) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data[i].title == title && data[i].author == author) {
                             cout << "Title: " << title << "\tAuthor: " << author << "\tEdition: ";
                             auto it_end = data[i].edition.end();
                             it_end--;
-                            for(auto it = data[i].edition.begin(); it != data[i].edition.end(); it++) {
+                            for (auto it = data[i].edition.begin(); it != data[i].edition.end(); it++) {
                                 cout << *it;
-                                if(it != it_end) cout << ", ";
+                                if (it != it_end) cout << ", ";
                             }
                             cout << endl;
                             break;
@@ -339,15 +337,15 @@ int main() {
                 }
             }
         }
-        else if(one_line.substr(0, 11) == "Find Author") {
+        else if (one_line.substr(0, 11) == "Find Author") {
             string author;
-            
-            if(one_line.length() > 12) {
+
+            if (one_line.length() > 12) {
                 one_line.erase(0, 12);   // Find_Author_ を消去
-                
+
                 int pos = find_quotation(one_line);
-                if(pos != 0) {
-                    author = one_line.substr(0, pos+1);    // 最初と最後の0x22ごとsubstr
+                if (pos != 0) {
+                    author = one_line.substr(0, pos + 1);    // 最初と最後の0x22ごとsubstr
                     author.pop_back();   //最後の0x22消去
                     author.erase(0, 1);   //最初の0x22消去
                 }
@@ -362,23 +360,23 @@ int main() {
                 cout << "Incomplete Command." << endl;
                 continue;
             }
-            
-            if(author == "") exit(EXIT_FAILURE);
+
+            if (author == "") exit(EXIT_FAILURE);
             else {
-                if(Author.find(author) != Author.end()) {
+                if (Author.find(author) != Author.end()) {
                     set<string> find_book;
-                    for(int i = 0; i < data.size(); i++) {
-                        if(data[i].author == author) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data[i].author == author) {
                             find_book.insert(data[i].title);
                         }
                     }
-                    
+
                     cout << author << "\'s Books: ";
                     auto it_end = find_book.end();
                     it_end--;
-                    for(auto it = find_book.begin(); it != find_book.end(); it++) {
+                    for (auto it = find_book.begin(); it != find_book.end(); it++) {
                         cout << *it;
-                        if(it != it_end) cout << ", ";
+                        if (it != it_end) cout << ", ";
                     }
                     cout << endl;
                 }
@@ -387,23 +385,23 @@ int main() {
                 }
             }
         }
-        else if(one_line.substr(0, 13) == "Sort by Title") {
+        else if (one_line.substr(0, 13) == "Sort by Title") {
             set<string> find_author;
-            for(auto it_title = Title.begin(); it_title != Title.end(); it_title++) {
-                for(int i = 0; i < data.size(); i++) {
-                    if(data[i].title == *it_title) {
+            for (auto it_title = Title.begin(); it_title != Title.end(); it_title++) {
+                for (int i = 0; i < data.size(); i++) {
+                    if (data[i].title == *it_title) {
                         find_author.insert(data[i].author);
                     }
                 }
-                for(auto it_author = find_author.begin(); it_author != find_author.end(); it_author++) {
-                    for(int i = 0; i < data.size(); i++) {
-                        if(data[i].title == *it_title && data[i].author == *it_author) {
+                for (auto it_author = find_author.begin(); it_author != find_author.end(); it_author++) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data[i].title == *it_title && data[i].author == *it_author) {
                             auto it_end = data[i].edition.end();
                             it_end--;
                             cout << "Title: " << *it_title << "\tAuthor: " << *it_author << "\tEdition: ";
-                            for(auto it_edi = data[i].edition.begin(); it_edi != data[i].edition.end(); it_edi++) {
+                            for (auto it_edi = data[i].edition.begin(); it_edi != data[i].edition.end(); it_edi++) {
                                 cout << *it_edi;
-                                if(it_edi != it_end) cout << ", ";
+                                if (it_edi != it_end) cout << ", ";
                             }
                             cout << endl;
                         }
@@ -411,23 +409,23 @@ int main() {
                 }
             }
         }
-        else if(one_line.substr(0, 14) == "Sort by Author") {
+        else if (one_line.substr(0, 14) == "Sort by Author") {
             set<string> find_title;
-            for(auto it_author = Author.begin(); it_author != Author.end(); it_author++) {
-                for(int i = 0; i < data.size(); i++) {
-                    if(data[i].author == *it_author) {
+            for (auto it_author = Author.begin(); it_author != Author.end(); it_author++) {
+                for (int i = 0; i < data.size(); i++) {
+                    if (data[i].author == *it_author) {
                         find_title.insert(data[i].title);
                     }
                 }
-                for(auto it_title = find_title.begin(); it_title != find_title.end(); it_title++) {
-                    for(int i = 0; i < data.size(); i++) {
-                        if(data[i].title == *it_title && data[i].author == *it_author) {
+                for (auto it_title = find_title.begin(); it_title != find_title.end(); it_title++) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data[i].title == *it_title && data[i].author == *it_author) {
                             auto it_end = data[i].edition.end();
                             it_end--;
                             cout << "Title: " << *it_title << "\tAuthor: " << *it_author << "\tEdition: ";
-                            for(auto it_edi = data[i].edition.begin(); it_edi != data[i].edition.end(); it_edi++) {
+                            for (auto it_edi = data[i].edition.begin(); it_edi != data[i].edition.end(); it_edi++) {
                                 cout << *it_edi;
-                                if(it_edi != it_end) cout << ", ";
+                                if (it_edi != it_end) cout << ", ";
                             }
                             cout << endl;
                         }
@@ -438,7 +436,7 @@ int main() {
         else {
             cout << "Unknown Command." << endl;
         }
-        
+
     }
     return 0;
 }
